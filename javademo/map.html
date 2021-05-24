@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="map.css">
+    <link rel="icon" href="https://csvcus.homeaway.com/rsrcs-crs/cdn-logos/5.1.1/sitename/vrbo/web/favicon.ico">
+    <title>Vrbo</title>
+</head>
+
+<body>
+
+    <h2 class="heading">Map</h2>
+
+    <div><b>Delhi, California, United States of America</b></div>
+    <div>Detailed location provided after booking</div>
+    <br>
+    <hr>
+    <ul class="navigator">
+        <li class="navigator-item active">Highlights</li>
+        <li class="navigator-item">Outdoor activities</li>
+        <li class="navigator-item">Family-friendly</li>
+        <li class="navigator-item">Restaurants</li>
+        <li class="navigator-item">Landmarks</li>
+        <li class="navigator-item">Shopping &amp; relaxation</li>
+        <li class="navigator-item">Transportation</li>
+    </ul>
+    <br>
+    <h4 class="whats_nearby">What's nearby</h4>
+
+    <div class="flex-container">
+        <div class="text">
+            <ol class="highlights">
+                <li class="list-item"> Hilmar Cheese Company<span class="distance">3.8 km</span></li>
+                <li class="list-item"> California State University Stanislaus<span class="distance">11.8 km</span></li>
+                <li class="list-item"> Hilmar Country Plaza<span class="distance">3.7 km</span></li>
+                <li class="list-item"> Carnegie Arts Center<span class="distance">8.5 km</span></li>
+                <li class="list-item"> Stevinson Ranch<span class="distance">11.2 km</span></li>
+                <li class="list-item"> Castle Air Museum<span class="distance">21.4 km</span></li>
+            </ol>
+            
+            <div class="pagination">
+                <button onclick="showfirst()" class="page page1 disabled">&lt;</button>
+                <span class="paging">1 - 6 of 12</span>
+                <button onclick="showsecond()" class="page page2 enabled">&gt;</button>
+            </div>
+        </div>
+        <div class="map">
+            <img src="map.png" class="map" style="height: 500px"></img>
+        </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="map.js" charset="utf-8"></script>
+
+
+</body>
+
+</html>
