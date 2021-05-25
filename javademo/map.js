@@ -38,8 +38,8 @@ var sel= document.querySelectorAll(".navigator li");
 //Add event listeners
 for(i=0;i<sel.length;i++){
     
-    sel[i].addEventListener('click', function(e){
-    var listing = e.target.innerHTML;
+    sel[i].addEventListener('click', function(event){
+    var listing = event.target.innerHTML;
     document.querySelector(".active").classList.remove("active");
     this.classList.add("active");
     cls=listing;
