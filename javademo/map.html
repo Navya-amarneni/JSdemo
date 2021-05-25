@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="map.css">
     <link rel="icon" href="https://csvcus.homeaway.com/rsrcs-crs/cdn-logos/5.1.1/sitename/vrbo/web/favicon.ico">
-    <title>Vrbo</title>
+    <title></title>
 </head>
 
 <body>
@@ -33,17 +33,15 @@
         <div class="text">
             <ol class="highlights">
                 <li class="list-item"> Hilmar Cheese Company<span class="distance">3.8 km</span></li>
-                <li class="list-item"> California State University Stanislaus<span class="distance">11.8 km</span></li>
-                <li class="list-item"> Hilmar Country Plaza<span class="distance">3.7 km</span></li>
-                <li class="list-item"> Carnegie Arts Center<span class="distance">8.5 km</span></li>
-                <li class="list-item"> Stevinson Ranch<span class="distance">11.2 km</span></li>
-                <li class="list-item"> Castle Air Museum<span class="distance">21.4 km</span></li>
+                <li class="list-item"> California State University <span class="distance">11.8 km</span></li>
+                <li class="list-item"> Hilmar Country Paza<span class="distance">3.7 km</span></li>
+                <li class="list-item"> Hilmar Country <span class="distance">3.7 km</span></li>
             </ol>
             
             <div class="pagination">
-                <button onclick="showfirst()" class="page page1 disabled">&lt;</button>
+                <button onclick="page_clicked(this.id)" id="prev" class="page disabled">&lt;</button>
                 <span class="paging">1 - 6 of 12</span>
-                <button onclick="showsecond()" class="page page2 enabled">&gt;</button>
+                <button onclick="page_clicked(this.id)" id="next" class="page">&gt;</button>
             </div>
         </div>
         <div class="map">
@@ -51,7 +49,6 @@
         </div>
     </div>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="map.js" charset="utf-8"></script>
 
 

@@ -1,98 +1,132 @@
-var highlights=['highlight1','highlight2','highlight3','highlight4','highlight5','highlight6','highlight7','highlight8','highlight9','highlight10','highlight11','highlight12'];
-var outdoor=['outdoor1','outdoor2','outdoor3','outdoor4','outdoor5','outdoor6','outdoor7','outdoor8','outdoor9','outdoor10','outdoor11','outdoor12'];
-var family=['family1','family2','family3','family4','family5','family6','family7','family8','family9','family10','family11','family12'];
-var restaurants=['restaurant1','restaurant2','restaurant3','restaurant4','restaurant5','restaurant6','restaurant7','restaurant8','restaurant9','restaurant10','restaurant11','restaurant12'];
-var landmarks=['landmark1','landmark2','landmark3','landmark4','landmark5','landmark6','landmark7','landmark8','landmark9','landmark10','landmark11','landmark12'];
-var shopping=['shopping1','shopping2','shopping3','shopping4','shopping5','shopping6','shopping7','shopping8','shopping9','shopping10','shopping11','shopping12'];
-var transport=['transport1','transport2','transport3','transport4','transport5','transport6','transport7','transport8','transport9','transport10','transport11','transport12'];
+//Mock data
+var items = {
+    listofitems:[
+        {name: 'Hilmar Cheese2 Company', dist: 1, tags:['highlight', 'outdoor','family']},
+        {name: 'California State University Stanislaus', dist: 3.8, tags:['highlight']},
+        {name: 'Hilmar Country Plaza', dist: 4, tags:['highlight']},
+        {name: 'Carnegie Arts Center', dist: 6, tags:['outdoor','family']},
+        {name: 'Ricos Pizza', dist: 8, tags:['highlight', 'outdoor']},
+        {name: 'Elegant Bull', dist: 10, tags:['family','outdoor']},
+        {name: 'ABCABAC', dist: 4.6, tags:['family']},
+        {name: 'CGDFS', dist: 7, tags:['highlight','family']},
+        {name: 'AHUEE', dist: 8, tags:['highlight', 'outdoor']},
+        {name: 'Carmellon', dist: 9, tags:['highlight']},
+        {name: 'new bean cafe', dist: 4.6, tags:['outdoor']},
+        {name: 'zayka', dist: 7, tags:['highlight','family']},
+        {name: 'angethi', dist: 8, tags:['family', 'outdoor']},
+        {name: 'museum', dist: 9, tags:['highlight', 'family']},
+        {name: 'beach', dist: 4.6, tags:['family']},
+        {name: 'park', dist: 7, tags:['family','outdoor']},
+        {name: 'zoo', dist: 8, tags:['highlight', 'outdoor']},
+        {name: 'drive in', dist: 9, tags:['outdoor', 'family']},
+    ]
+}
 
-var sel = '.navigator li';
-var cls='Highlights';
-var start=0;
-var end=6;
 
+
+var cls='Highlights';//class to be active initially
+var start=0;//start pointer
+var size=4; //number of li items to display onscreen at once
+var itno=8; // number of total items of specific tag
+
+
+//initial setup
 identifyclass('Highlights');
+document.querySelector(".paging").innerHTML=(start+1)+' - '+(start+size)+' of '+itno;
 
-
-$(sel).on('click', function(){
-
-    var listing = this.innerHTML;
-    $(sel).removeClass('active');
-    $(this).addClass('active');
+var sel= document.querySelectorAll(".navigator li");
+//Add event listeners
+for(i=0;i<sel.length;i++){
+    
+    sel[i].addEventListener('click', function(e){
+    var listing = e.target.innerHTML;
+    document.querySelector(".active").classList.remove("active");
+    this.classList.add("active");
     cls=listing;
-    showfirst();
+    //correspondigly change pagination on reset
+    start=size;
+    page_clicked("prev");
+    //call function
+    start=0;
+    identifyclass(cls);
     
 });
+}
 
 
+//finding the element with right tag and changing its contents
+function find_element(str,arr,start,end){
+    var count=0;
+    var i=start;
+    for(j=0;j<items.listofitems.length;j++){
+        var x = items.listofitems[j].tags.includes(str);
+        if(count>=start && count<end && x==true){
+            arr[i%size].childNodes[0].nodeValue=items.listofitems[j].name;
+            arr[i%size].childNodes[1].innerHTML=items.listofitems[j].dist+' km ';
+            i++;
+        }
+        if(x==true)count++;
+        
+    }
+}
 
 
+//main function
 function identifyclass(str){
-    console.log(start);
-    var arr=$('ol li');
+    console.log("kk");
+  console.log(start);
+    end=size+start;
+    var arr=document.querySelectorAll('ol li');
     arr[0].value=start+1;
     switch(str){
        case('Highlights'):
-           for(i=start;i<end;i++){
-               arr[i%6].innerHTML=highlights[i];
-           }          
+           find_element('highlight',arr,start,end);        
            break;
        case('Outdoor activities'):
-           for(i=start;i<end;i++){
-               console.log(i);
-            arr[i%6].innerHTML=outdoor[i];
-            }   
+            find_element('outdoor',arr,start,end);   
            break;
        case('Family-friendly'):         
-           for(i=start;i<end;i++){
-            arr[i%6].innerHTML=family[i];
-            }    
+            find_element('family',arr,start,end);    
            break;
        case('Restaurants'):         
-           for(i=start;i<end;i++){
-            arr[i%6].innerHTML=restaurants[i];
-            }  
+            find_element('highlight',arr,start,end);   
            break;
        case('Landmarks'):        
-           for(i=start;i<end;i++){
-            arr[i%6].innerHTML=landmark[i];
-            }  
+             find_element('highlight',arr,start,end);   
            break;
        case('Shopping &amp; relaxation'):        
-           for(i=start;i<end;i++){
-            arr[i%6].innerHTML=shopping[i];
-            }
+            find_element('highlight',arr,start,end);         
            break;
        case('Transportation'):        
-           for(i=start;i<end;i++){
-            arr[i%6].innerHTML=transport[i];
-            }
+            find_element('highlight',arr,start,end);  
            break;
    
     }
    }
 
 
-function showfirst(){
+//change pagination
+   function page_clicked(clicked){
 
-    start=0;end=6;
+    var page_next=document.querySelector('#next');
+    var page_prev=document.querySelector('#prev');
+    if(clicked=="prev"){  if(page_prev.classList.contains('disabled'))return ;  start-=size;}
+    if(clicked=="next"){  if(page_next.classList.contains('disabled'))return ;  start+=size;}
+
+    if((start+size)>=itno){
+        page_next.classList.add('disabled');
+    }
+    else{
+        page_next.classList.remove('disabled');  
+    }
+
+    if(start-size<0){
+        page_prev.classList.add('disabled');
+    }
+    
+    if(start-size>=0){
+        page_prev.classList.remove('disabled');
+    }
+    document.querySelector(".paging").innerHTML=(start+1)+' - '+(start+size)+' of '+itno;
     identifyclass(cls);
-    $('button').removeClass('enabled');
-    $('button').removeClass('disabled');
-    $('.pagination .page2').addClass('enabled');
-    $('.pagination .page1').addClass('disabled');
-}
-
-
-
-function showsecond(){
-
-    start=6;end=12;
-    console.log(cls);
-    identifyclass(cls);
-    $('button').removeClass('enabled');
-    $('button').removeClass('disabled');
-    $('.pagination .page1').addClass('enabled');
-    $('.pagination .page2').addClass('disabled');
-
-}
+   }
